@@ -1,3 +1,6 @@
+@import url('https://css.gg/backspace.css');
+@import url('https://css.gg/arrow-down-r.css');
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -9,20 +12,15 @@ body {
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import url('https://css.gg/arrow-down-r.css');
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
 
-.huy {
-  width: 2.5rem;
-  height:3.625rem;
+.yellow {
+  background-color: yellow;
 }
-.bigger {
-  height: 3.625rem;
-  width: 4rem;
-}
-.keyboard-row {
-  max-width: 30rem;
+.green {
+  background-color: green;
 }
