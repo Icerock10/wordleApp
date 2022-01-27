@@ -1,8 +1,10 @@
+
 const initialState = {
     word: [
         '', '', '', '', '', ''
     ],
-    currentTry: 0
+    currentTry: 0,
+    guessedWord: 'РОБОТ',
 }
 
 const wordReducer =  (state = initialState, action ) => {
@@ -30,8 +32,8 @@ const wordReducer =  (state = initialState, action ) => {
         case "CHANGE_STAGE":
             return {
             ...state,
-            currentTry: state.currentTry + 1
-}
+            currentTry: state.currentTry + 1,
+  }
     default: return state
  }
 }

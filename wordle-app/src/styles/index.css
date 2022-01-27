@@ -18,9 +18,6 @@ code {
     monospace;
 }
 
-.yellow {
-  background-color: yellow;
-}
-.green {
-  background-color: green;
+.highlight {
+  padding: 0.8rem 1.3rem;
 }

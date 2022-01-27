@@ -1,19 +1,37 @@
 import React, {useEffect, useState} from 'react';
 import { keyboard, letterValidator } from "../helpers/keyboard";
 import { connect } from "react-redux";
+import { wordsInList } from "../helpers/guess";
 
-const Keyboard = ({ dispatch }) => {
 
+const Keyboard = ({ word, currentTry, dispatch }) => {
+
+    const wordValidator = (word) => {
+        const filtered = word.filter((item, index) => {
+            return index === currentTry
+        })
+        const splitWord = filtered.join('').split('')
+        const finalResult = wordsInList.filter((item, index) => item.includes(filtered[0]))
+
+        if(splitWord.length < 5) {
+            alert('Не достаточно букв')
+        }
+        if(!finalResult.length) {
+            return  alert('Нет в списке')
+        }
+        dispatch({type: "CHANGE_STAGE"})
+}
       const checkButtonAndAddLetter = (key) => {
         if(key === 'Enter') {
-            return dispatch({type: "CHANGE_STAGE"})
-       }
+            wordValidator(word)
+          }
         if(key === 'Backspace'){
             return dispatch({type: "REMOVE_LETTER"})
         }
         if(!letterValidator(key).length) return;
         return dispatch({type: "ADD_WORD", payload: key.toUpperCase()})
     }
+
      const handleClick = (e) => {
          checkButtonAndAddLetter(e.target.name)
     }
@@ -25,7 +43,7 @@ const Keyboard = ({ dispatch }) => {
         return () => {
             document.removeEventListener("keydown", handler);
         };
-    }, []);
+    }, [word]);
 
 
     return (
@@ -43,9 +61,10 @@ const Keyboard = ({ dispatch }) => {
 };
 
 const mapStateToProps = (state) => {
-    const { word } = state;
+    const { word, currentTry } = state;
     return {
-        word
+        word,
+        currentTry
     }
 }
 
