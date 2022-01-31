@@ -1,21 +1,22 @@
-import React, {useDispatch, useSelector} from 'react-redux';
+import React, {useSelector} from 'react-redux';
 import Keyboard from "./Keyboard";
 import Letters from "./Letters";
-import {useEffect} from "react";
+import Notification from "../notifications/Notification";
+
 
 const App = () => {
    const gameState = useSelector(state => state);
-      const {word, guessedWord, userWord, currentTry} = gameState;
-
+      const {word, guessedWord, currentTry, notification} = gameState;
 
   return (
     <div className="flex-initial flex justify-center items-center flex-col m-auto max-w-2xl">
-          <div className='mb-24'>Wordle game</div>
+          <div className='mb-40 font-bold text-4xl tracking-widest py-2 border-b-2 text-center w-8/12'>WORDLE</div>
+
         {word.map((item, i) => {
            return <div key={`word-${i}`} className='flex'>
+               {!notification.isValid && <Notification />}
                <Letters
                item={item}
-               userWord={userWord}
                guessedWord={guessedWord}
                index={i}
                currentTry={currentTry}
@@ -30,16 +31,3 @@ const App = () => {
 }
 
 export default App;
-
-
-// const highLightLetter = (item, i) => {
-//     if(item.length < 5) {
-//         return 'text-3xl font-medium'
-//     }
-//     if(guessedWord[i] === item[i]) {
-//         return 'bg-lime-500 highlight text-3xl font-medium'
-//     } else if(guessedWord.includes(item[i])) {
-//         return 'bg-orange-500 highlight text-3xl font-medium'
-//     }
-//     return 'bg-gray-500 highlight text-3xl font-medium'
-// }

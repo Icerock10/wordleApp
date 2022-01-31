@@ -21,3 +21,14 @@ code {
 .highlight {
   padding: 0.8rem 1.3rem;
 }
+svg {
+  margin-left: 1.1rem;
+  opacity: 0.6;
+}
+.fade-in {
+  transition: opacity 1s ease;
+}
+.fade-out {
+  opacity: 0;
+  transition: opacity 1s ease;
+}

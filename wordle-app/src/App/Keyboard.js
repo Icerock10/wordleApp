@@ -1,37 +1,15 @@
-import React, {useEffect, useState} from 'react';
-import { keyboard, letterValidator } from "../helpers/keyboard";
+import React, {useEffect} from 'react';
+import { keyboard } from "../helpers/keyboard";
 import { connect } from "react-redux";
-import { wordsInList } from "../helpers/guess";
+import { getPressedButtonAndAddLetter } from "../helpers/wordValidator";
+import { icon } from "../helpers/icon";
 
+const Keyboard = ({ word, currentTry, dispatch }) => {
 
-const Keyboard = ({ word, currentTry, dispatch, guessedWord }) => {
-
-    const wordValidator = (word, key) => {
-        const filtered = word.filter((item, index) => {
-            return index === currentTry
-        })
-        if(filtered.join('').split('').length < 5) {
-           return alert('Не достаточно букв')
-        }
-        const finalResult = wordsInList.filter((item, index) => item.includes(filtered[0]))
-        if(!finalResult.length) {
-            return alert('Нет в списке')
-        }
-     return dispatch({type: "CHANGE_STAGE", payload: finalResult})
-}
-      const checkButtonAndAddLetter = (key) => {
-        if(key === 'Enter') {
-            wordValidator(word, key)
-          }
-        if(key === 'Backspace'){
-            return dispatch({type: "REMOVE_LETTER"})
-        }
-        if(!letterValidator(key).length) return;
-        return dispatch({type: "ADD_WORD", payload: key.toUpperCase()})
-    }
     useEffect(() => {
         const handler = (event) => {
-            checkButtonAndAddLetter(event.key);
+            event.preventDefault();
+            getPressedButtonAndAddLetter(event.key, dispatch, currentTry, word);
         };
         document.addEventListener("keydown", handler);
         return () => {
@@ -39,16 +17,25 @@ const Keyboard = ({ word, currentTry, dispatch, guessedWord }) => {
         };
     }, [word]);
 
+    const checkKey = (e) => {
+        const closestKeyName = e.target.closest('.text-black').name;
+        getPressedButtonAndAddLetter(closestKeyName, dispatch, currentTry, word);
+    }
 
-
+    const highLightButton = (key) => {
+        return 'w-10 h-14 bg-slate-400 text-black rounded m-1'
+    }
 
     return (
-        <div className="max-w-[36rem] flex flex-wrap justify-center m-auto w-full mt-64">
-            {keyboard.map((key, index) => {
+        <div className="max-w-[36rem] flex flex-wrap justify-center m-auto w-full mt-44">
+            {keyboard.map((key) => {
                 return <button key={`key-${key}`}
+                               onClick={(e) => checkKey(e)}
                                name={key}
-                               className={key === 'Enter' || key === 'Backspace' ? 'w-16 h-14 bg-slate-400 text-white rounded m-1' : 'w-10 h-14 bg-slate-400 text-white rounded m-1'}>
-                    {key}
+                               className={key === 'Enter' || key === 'Backspace' ?
+                                   'w-16 h-14 bg-slate-400 text-black rounded m-1' :
+                                   highLightButton(key)}>
+                    {key === 'Backspace' ? icon : key}
                 </button>
             })}
         </div>
