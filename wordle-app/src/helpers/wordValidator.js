@@ -9,13 +9,12 @@ const getWordValidated = (word, dispatch, currentTry) => {
     if(filterWordByStage.join('').split('').length < 5) {
         return dispatch({type: "NOTIFICATION", payload: {inValid: false, message: 'Недостаточно букв'}})
     }
-
     const wordFromWordList = wordsInList.filter((item) => item.includes(filterWordByStage[0]))
 
     if(!wordFromWordList.length) {
         return dispatch({type: "NOTIFICATION", payload: {inValid: false, message: 'Слова нет в списке'}})
     }
-    return dispatch({type: "CHANGE_STAGE"})
+    return dispatch({type: "CHANGE_STAGE", payload: wordFromWordList})
 }
 export const getPressedButtonAndAddLetter = (key, dispatch, currentTry, word) => {
     if(key === 'Enter') {

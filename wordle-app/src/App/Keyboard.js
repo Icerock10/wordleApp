@@ -1,10 +1,9 @@
 import React, {useEffect} from 'react';
 import { keyboard } from "../helpers/keyboard";
-import { connect } from "react-redux";
 import { getPressedButtonAndAddLetter } from "../helpers/wordValidator";
 import { icon } from "../helpers/icon";
 
-const Keyboard = ({ word, currentTry, dispatch }) => {
+const Keyboard = ({ word, currentTry, dispatch, guessedWord, letters }) => {
 
     useEffect(() => {
         const handler = (event) => {
@@ -23,6 +22,10 @@ const Keyboard = ({ word, currentTry, dispatch }) => {
     }
 
     const highLightButton = (key) => {
+
+        if(letters.incorrectPos.split('').includes(key)) {
+            return 'w-10 h-14 bg-green-400 text-black rounded m-1'
+        }
         return 'w-10 h-14 bg-slate-400 text-black rounded m-1'
     }
 
@@ -42,12 +45,4 @@ const Keyboard = ({ word, currentTry, dispatch }) => {
     )
 };
 
-const mapStateToProps = (state) => {
-    const { word, currentTry } = state;
-    return {
-        word,
-        currentTry
-    }
-}
-
-export default connect(mapStateToProps)(Keyboard);
+export default Keyboard;

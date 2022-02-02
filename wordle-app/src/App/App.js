@@ -1,4 +1,4 @@
-import React, {useSelector} from 'react-redux';
+import React, {useDispatch, useSelector} from 'react-redux';
 import Keyboard from "./Keyboard";
 import Letters from "./Letters";
 import Notification from "../notifications/Notification";
@@ -6,7 +6,8 @@ import Notification from "../notifications/Notification";
 
 const App = () => {
    const gameState = useSelector(state => state);
-      const {word, guessedWord, currentTry, notification} = gameState;
+      const {word, guessedWord, currentTry, notification, letters} = gameState;
+      const dispatch = useDispatch();
 
   return (
     <div className="flex-initial flex justify-center items-center flex-col m-auto max-w-2xl">
@@ -24,7 +25,11 @@ const App = () => {
                  </div>
         })}
         <Keyboard
+            word={word}
+            currentTry={currentTry}
+            dispatch={dispatch}
             guessedWord={guessedWord}
+            letters={letters}
         />
     </div>
   );

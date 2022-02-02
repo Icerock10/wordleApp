@@ -8,6 +8,11 @@ const initialState = {
     notification: {
         isValid: true,
         message: ''
+    },
+    letters: {
+        match: '',
+        incorrectPos: '',
+        absent: ''
     }
 }
 
@@ -44,8 +49,29 @@ const wordReducer =  (state = initialState, action ) => {
                 })
             }
         case "CHANGE_STAGE":
+            const matchLetters = [];
+            const incorrectPosLetters = [];
+            const absentLetters = [];
+
+            state.guessedWord.split('').forEach((item, i, array) => {
+                    const split = action.payload.join('').split('')
+                    if(split[i] === item) {
+                        matchLetters.push(split[i])
+                    } else if(array.includes(split[i])){
+                        incorrectPosLetters.push(split[i])
+                    } else {
+                        absentLetters.push(split[i])
+                    }
+                }
+           )
             return {
             ...state,
+            letters: {
+                ...state.letters,
+                incorrectPos: `${state.letters.incorrectPos}${incorrectPosLetters.join('')}`,
+                match: `${state.letters.match}${matchLetters.join('')}`,
+                absent: `${state.letters.absent}${absentLetters.join('')}`,
+            },
             currentTry: state.currentTry + 1,
            }
     default: return state
