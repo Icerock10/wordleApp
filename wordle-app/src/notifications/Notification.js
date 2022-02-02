@@ -19,7 +19,7 @@ const Notification = ({dispatch, message}) => {
     }, [fadeIn]);
 
     return (
-        <div className={`absolute h-12 right-96 opacity-90 flex items-center top-32 bg-zinc-800 text-white tracking-widest rounded-lg px-4  ${fadeIn.fade}`}>
+        <div className={`absolute h-12 opacity-90 flex items-center top-32 bg-zinc-800 text-white tracking-widest rounded-lg px-4  ${fadeIn.fade}`}>
            <span>{message}</span>
         </div>
     );

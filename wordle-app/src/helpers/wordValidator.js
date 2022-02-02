@@ -14,7 +14,7 @@ const getWordValidated = (word, dispatch, currentTry) => {
     if(!wordFromWordList.length) {
         return dispatch({type: "NOTIFICATION", payload: {inValid: false, message: 'Слова нет в списке'}})
     }
-    return dispatch({type: "CHANGE_STAGE", payload: wordFromWordList})
+    return dispatch({type: "CHANGE_STAGE", payload: wordFromWordList.join('')})
 }
 export const getPressedButtonAndAddLetter = (key, dispatch, currentTry, word) => {
     if(key === 'Enter') {

@@ -13,7 +13,8 @@ const initialState = {
         match: '',
         incorrectPos: '',
         absent: ''
-    }
+    },
+    userWord: ''
 }
 
 const wordReducer =  (state = initialState, action ) => {
@@ -49,30 +50,37 @@ const wordReducer =  (state = initialState, action ) => {
                 })
             }
         case "CHANGE_STAGE":
-            const matchLetters = [];
-            const incorrectPosLetters = [];
-            const absentLetters = [];
+            let matchLetters = '';
+            let incorrectPosLetters = '';
+            let absentLetters = '';
 
-            state.guessedWord.split('').forEach((item, i, array) => {
-                    const split = action.payload.join('').split('')
-                    if(split[i] === item) {
-                        matchLetters.push(split[i])
-                    } else if(array.includes(split[i])){
-                        incorrectPosLetters.push(split[i])
+            state.guessedWord.split('').forEach((item, i, word) => {
+                    if(action.payload[i] === item) {
+                        matchLetters += action.payload[i];
+                    } else if(word.includes(action.payload[i])){
+                        incorrectPosLetters += action.payload[i];
                     } else {
-                        absentLetters.push(split[i])
+                        absentLetters += action.payload[i];
                     }
-                }
-           )
+                })
+            const checkSameWord = () => {
+                return state.userWord === action.payload
+            }
             return {
             ...state,
             letters: {
                 ...state.letters,
-                incorrectPos: `${state.letters.incorrectPos}${incorrectPosLetters.join('')}`,
-                match: `${state.letters.match}${matchLetters.join('')}`,
-                absent: `${state.letters.absent}${absentLetters.join('')}`,
+                incorrectPos: `${state.letters.incorrectPos}${incorrectPosLetters}`,
+                match: `${state.letters.match}${matchLetters}`,
+                absent: `${state.letters.absent}${absentLetters}`,
             },
-            currentTry: state.currentTry + 1,
+                notification: {
+                    ...state.notification,
+                    isValid: checkSameWord() ? false : state.notification.isValid,
+                    message: 'Не достаточно букв'
+                },
+             userWord: action.payload,
+            currentTry: checkSameWord() ? state.currentTry : state.currentTry + 1
            }
     default: return state
  }
