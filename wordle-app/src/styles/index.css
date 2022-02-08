@@ -19,7 +19,11 @@ code {
 }
 
 .highlight {
-  padding: 0.8rem 1.3rem;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 svg {
   margin-left: 1.1rem;

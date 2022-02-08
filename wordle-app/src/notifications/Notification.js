@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import { connect } from "react-redux";
+import { sendUserNotification } from "../actions/actions";
 
 const Notification = ({dispatch, message}) => {
     const [fadeIn, setFadeIn] = useState({fade: "fade-in"})
@@ -10,7 +11,7 @@ const Notification = ({dispatch, message}) => {
                 setFadeIn({ fade: "fade-out" });
             } else {
                 setFadeIn({ fade: "fade-out" });
-                dispatch({type: "NOTIFICATION", payload: {inValid: true, message: ''}})
+                dispatch(sendUserNotification({inValid: true, message: ''}))
             }
         }, 700);
         return () => {
@@ -19,7 +20,7 @@ const Notification = ({dispatch, message}) => {
     }, [fadeIn]);
 
     return (
-        <div className={`absolute h-12 opacity-90 flex items-center top-32 bg-zinc-800 text-white tracking-widest rounded-lg px-4  ${fadeIn.fade}`}>
+        <div className={`absolute h-12 opacity-90 flex items-center top-28 bg-zinc-800 text-white tracking-widest rounded-lg px-4 ${fadeIn.fade}`}>
            <span>{message}</span>
         </div>
     );

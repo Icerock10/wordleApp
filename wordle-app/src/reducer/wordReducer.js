@@ -1,10 +1,12 @@
+import { wordsInList } from "../helpers/guess";
+import { ADD_WORD, NOTIFICATION, ANIMATION_ENDS, GAME_ENDS, REMOVE_LETTER, CHANGE_STAGE  } from '../actions/actions';
 
 const initialState = {
     word: [
         '', '', '', '', '', ''
     ],
     currentTry: 0,
-    guessedWord: 'РОБОТ',
+    guessedWord: wordsInList[Math.floor(Math.random() * wordsInList.length)],
     notification: {
         isValid: true,
         message: ''
@@ -14,23 +16,25 @@ const initialState = {
         incorrectPos: '',
         absent: ''
     },
-    userWord: ''
+    userWord: '',
+    isAnimationPassed: false,
+    userMessage: ''
 }
 
 const wordReducer =  (state = initialState, action ) => {
-    switch (action.type) {
-        case "ADD_WORD":
+     switch (action.type) {
+        case ADD_WORD:
             return {
                 ...state,
                 word: state.word.map((item, i) => {
                     if (i === state.currentTry) {
-                        return item.length === 5 ? item : `${item}${action.payload}`
+                        return item.length === 5 ? item : `${item}${action.letter}`
                     }
                     return item;
                 })
             }
-        case "NOTIFICATION":
-            const { inValid, message } = action.payload;
+        case NOTIFICATION:
+            const { inValid, message } = action.statusMessage;
             return {
                 ...state,
                 notification: {
@@ -39,7 +43,17 @@ const wordReducer =  (state = initialState, action ) => {
                     message: message
                 }
             }
-        case "REMOVE_LETTER":
+         case ANIMATION_ENDS:
+          return {
+              ...state,
+              isAnimationPassed: true,
+              userMessage: action.message
+          }
+         case GAME_ENDS:
+             return {
+                 ...initialState,
+             }
+        case REMOVE_LETTER:
             return {
                 ...state,
                 word: state.word.map((item, i) => {
@@ -49,23 +63,20 @@ const wordReducer =  (state = initialState, action ) => {
                     return item;
                 })
             }
-        case "CHANGE_STAGE":
+        case CHANGE_STAGE:
             let matchLetters = '';
             let incorrectPosLetters = '';
             let absentLetters = '';
 
             state.guessedWord.split('').forEach((item, i, word) => {
-                    if(action.payload[i] === item) {
-                        matchLetters += action.payload[i];
-                    } else if(word.includes(action.payload[i])){
-                        incorrectPosLetters += action.payload[i];
+                    if(action.word[i] === item) {
+                        matchLetters += action.word[i];
+                    } else if(word.includes(action.word[i])){
+                        incorrectPosLetters += action.word[i];
                     } else {
-                        absentLetters += action.payload[i];
+                        absentLetters += action.word[i];
                     }
                 })
-            const checkSameWord = () => {
-                return state.userWord === action.payload
-            }
             return {
             ...state,
             letters: {
@@ -74,13 +85,8 @@ const wordReducer =  (state = initialState, action ) => {
                 match: `${state.letters.match}${matchLetters}`,
                 absent: `${state.letters.absent}${absentLetters}`,
             },
-                notification: {
-                    ...state.notification,
-                    isValid: checkSameWord() ? false : state.notification.isValid,
-                    message: 'Не достаточно букв'
-                },
-             userWord: action.payload,
-            currentTry: checkSameWord() ? state.currentTry : state.currentTry + 1
+             userWord: action.word,
+            currentTry: state.currentTry + 1
            }
     default: return state
  }

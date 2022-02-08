@@ -4,22 +4,22 @@ import { getPressedButtonAndAddLetter } from "../helpers/wordValidator";
 import { icon } from "../helpers/icon";
 import { highLightButton } from "../helpers/highlight";
 
-const Keyboard = ({ word, currentTry, dispatch, guessedWord, letters }) => {
+const Keyboard = ({ word, currentTry, dispatch, letters , guessedWord, userWord}) => {
 
     useEffect(() => {
         const handler = (event) => {
             event.preventDefault();
-            getPressedButtonAndAddLetter(event.key, dispatch, currentTry, word);
+            getPressedButtonAndAddLetter(event.key, dispatch, currentTry, word, guessedWord, userWord);
         };
         document.addEventListener("keydown", handler);
         return () => {
             document.removeEventListener("keydown", handler);
         };
-    }, [word]);
+    });
 
     const checkKey = (e) => {
         const closestKeyName = e.target.closest('.text-black').name;
-        getPressedButtonAndAddLetter(closestKeyName, dispatch, currentTry, word);
+        getPressedButtonAndAddLetter(closestKeyName, dispatch, currentTry, word, guessedWord, userWord);
     }
     return (
         <div className="max-w-[36rem] flex flex-wrap justify-center m-auto w-full mt-44">
