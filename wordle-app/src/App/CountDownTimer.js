@@ -25,8 +25,8 @@ const CountDownTimer = ({ dispatch , userMessage }) => {
     });
     return (
         <div className='flex items-center flex-col absolute top-20'>
-            <div className={`${userMessage.length === 5 ? 'opacity-80 bg-black p-3 text-white' : 'bg-lime-500 p-3 text-white'} mb-2`}>{userMessage}</div>
-            <span className='text-2xl text-slate-900 font-medium'>Resets in: <span className='text-3xl text-slate-900 font-medium'>{`
+            <div className={`${userMessage.length === 5 ? 'z-10 opacity-80 bg-black p-3 text-white' : 'z-10 sm:bg-lime-500 bg-black p-3 text-white'} mb-2`}>{userMessage}</div>
+            <span className='z-10 text-2xl text-slate-900 font-medium'>Resets in: <span className='text-3xl text-slate-900 font-medium'>{`
             ${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`}</span></span>
         </div>
     );

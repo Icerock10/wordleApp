@@ -4,6 +4,8 @@ export const ANIMATION_ENDS = "ANIMATION_ENDS";
 export const GAME_ENDS = "GAME_ENDS";
 export const REMOVE_LETTER = "REMOVE_LETTER";
 export const CHANGE_STAGE = "CHANGE_STAGE";
+export const USER_LOGGED_IN = "USER_LOGGED_IN";
+export const CREATE_USER = "CREATE_USER";
 
 export const delayTillAnimationEnds = (message) => ({
     type: ANIMATION_ENDS,
@@ -26,4 +28,11 @@ export const addLetterInsideBox = (letter) => ({
 })
 export const removeLetterFromBox = () => ({
     type: REMOVE_LETTER
+})
+export const loginUser = () => ({
+    type: USER_LOGGED_IN
+})
+export const createUser = (values) => ({
+    type: CREATE_USER,
+    values
 })

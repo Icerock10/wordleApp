@@ -20,14 +20,14 @@ const Notification = ({dispatch, message}) => {
     }, [fadeIn]);
 
     return (
-        <div className={`absolute h-12 opacity-90 flex items-center top-28 bg-zinc-800 text-white tracking-widest rounded-lg px-4 ${fadeIn.fade}`}>
+        <div className={`absolute h-12 sm:opacity-90 z-10 opacity-100 flex items-center top-28 bg-zinc-800 text-white tracking-widest rounded-lg px-4 ${fadeIn.fade}`}>
            <span>{message}</span>
         </div>
     );
 };
 
 const mapStateToProps = (state) => {
-    const { message } = state.notification
+    const { message } = state.wordReducer.notification
     return {
         message
     }

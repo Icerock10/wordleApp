@@ -22,7 +22,7 @@ const Keyboard = ({ word, currentTry, dispatch, letters , guessedWord, userWord}
         getPressedButtonAndAddLetter(closestKeyName, dispatch, currentTry, word, guessedWord, userWord);
     }
     return (
-        <div className="max-w-[36rem] flex flex-wrap justify-center m-auto w-full mt-44">
+        <div className="max-w-[36rem] flex flex-wrap justify-center m-auto w-full sm:mt-44 mt-6">
             {keyboard.map((key) => {
                 return <button key={`key-${key}`}
                                onClick={(e) => checkKey(e)}
