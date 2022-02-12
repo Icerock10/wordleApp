@@ -2,12 +2,12 @@ import React from 'react';
 import { highLightLetter } from "../helpers/highlight";
 import { warningAnimation } from "../animations/animations";
 
-const Letters = ({item, guessedWord, currentTry, index, notification}) => {
+const Letters = ({word, guessedWord, currentTry, wordIndex, notification}) => {
 
-      return [...Array(5)].map((elem, i) => {
+      return [...Array(5)].map((letter, index) => {
         return (
-            <div key={`letter-${i}`} className={`${warningAnimation(index, i, currentTry, notification, item)}`}>
-                <span className={`${highLightLetter(item, i, guessedWord, currentTry, index)}`}>{item[i]}</span>
+            <div key={`letter-${index}`} className={`${warningAnimation(wordIndex, index, currentTry, notification, word)}`}>
+                <span className={`${highLightLetter(word, index, guessedWord, currentTry, wordIndex)}`}>{word[index]}</span>
             </div>
         );
     })

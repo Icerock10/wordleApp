@@ -8,7 +8,7 @@ import {useDispatch, useSelector} from "react-redux";
 const Game = () => {
     const gameState = useSelector(state => state.wordReducer);
 
-    const {word, guessedWord, currentTry, notification, letters, userWord, isAnimationPassed, userMessage} = gameState;
+    const {words, guessedWord, currentTry, notification, letters, userWord, isAnimationPassed, userMessage} = gameState;
     const dispatch = useDispatch();
 
     return (
@@ -23,19 +23,19 @@ const Game = () => {
                 userMessage={userMessage}
             />
             {!notification.isValid && <Notification />}
-            {word.map((item, i) => {
+            {words.map((word, i) => {
                 return <div key={`word-${i}`} className='flex'>
                     <Letters
-                        item={item}
+                        word={word}
                         guessedWord={guessedWord}
-                        index={i}
+                        wordIndex={i}
                         currentTry={currentTry}
                         notification={notification}
                     />
                 </div>
             })}
             <Keyboard
-                word={word}
+                words={words}
                 currentTry={currentTry}
                 dispatch={dispatch}
                 letters={letters}

@@ -2,7 +2,7 @@ import { wordsInList } from "../helpers/guess";
 import { ADD_WORD, NOTIFICATION, ANIMATION_ENDS, GAME_ENDS, REMOVE_LETTER, CHANGE_STAGE  } from '../actions/actions';
 
 const initialState = {
-    word: [
+    words: [
         '', '', '', '', '', ''
     ],
     currentTry: 0,
@@ -26,7 +26,7 @@ const wordReducer =  (state = initialState, action ) => {
         case ADD_WORD:
             return {
                 ...state,
-                word: state.word.map((item, i) => {
+                words: state.words.map((item, i) => {
                     if (i === state.currentTry) {
                         return item.length === 5 ? item : `${item}${action.letter}`
                     }
@@ -56,7 +56,7 @@ const wordReducer =  (state = initialState, action ) => {
         case REMOVE_LETTER:
             return {
                 ...state,
-                word: state.word.map((item, i) => {
+                words: state.words.map((item, i) => {
                     if(i === state.currentTry) {
                         return item.slice(0, -1)
                     }
