@@ -17,7 +17,7 @@ const Notification = ({dispatch, message}) => {
         return () => {
             clearInterval(timeout);
         };
-    }, [fadeIn]);
+    }, [fadeIn, dispatch]);
 
     return (
         <div className={`absolute h-12 sm:opacity-90 z-10 opacity-100 flex items-center top-28 bg-zinc-800 text-white tracking-widest rounded-lg px-4 ${fadeIn.fade}`}>

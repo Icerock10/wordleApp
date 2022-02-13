@@ -15,7 +15,7 @@ const GameEnds = ({ currentTry, userWord, guessedWord, dispatch, isAnimationPass
                     dispatch(delayTillAnimationEnds(guessedWord))
                 }, 1500)
             }
-        }, [userWord, currentTry])
+        }, [userWord, currentTry, dispatch, guessedWord])
 
     if(isAnimationPassed) {
         return <CountDownTimer dispatch={dispatch} userMessage={userMessage}/>

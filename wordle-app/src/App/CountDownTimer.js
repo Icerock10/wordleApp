@@ -11,7 +11,7 @@ const CountDownTimer = ({ dispatch , userMessage }) => {
         if(secs === 0) {
             dispatch(resetGameState());
         }
-    }, [secs])
+    }, [secs, dispatch])
 
      useEffect(() => {
         const tick = () => {
