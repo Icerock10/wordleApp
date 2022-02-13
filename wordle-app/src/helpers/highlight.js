@@ -21,13 +21,13 @@ export const highLightLetter = (word, letterIndex, guessedWord, currentTry, word
 
 export const highLightButton = (key, letters) => {
     if (letters.match.includes(key)) {
-        return 'w-10 h-14 bg-lime-500 text-white rounded m-1'
+        return 'keyboard-btn w-10 h-14 bg-lime-500 text-white rounded m-1'
     }
     if (letters.incorrectPos.includes(key)){
-        return 'w-10 h-14 bg-orange-500 text-white rounded m-1'
+        return 'keyboard-btn w-10 h-14 bg-orange-500 text-white rounded m-1'
     }
     if (letters.absent.includes(key)){
-        return 'w-10 h-14 bg-gray-500 text-white rounded m-1'
+        return 'keyboard-btn w-10 h-14 bg-gray-500 text-white rounded m-1'
     }
-    return 'w-10 h-14 bg-slate-400 text-black rounded m-1'
+    return 'keyboard-btn w-10 h-14 bg-slate-400 text-black rounded m-1'
 }

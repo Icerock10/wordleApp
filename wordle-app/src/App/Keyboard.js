@@ -18,7 +18,7 @@ const Keyboard = ({ words, currentTry, dispatch, letters , guessedWord, userWord
     });
 
     const checkKey = (e) => {
-        const closestKeyName = e.target.closest('.text-black').name;
+        const closestKeyName = e.target.closest('.keyboard-btn').name;
         getPressedButtonAndAddLetter(closestKeyName, dispatch, currentTry, words, guessedWord, userWord);
     }
     return (
@@ -28,7 +28,7 @@ const Keyboard = ({ words, currentTry, dispatch, letters , guessedWord, userWord
                                onClick={(e) => checkKey(e)}
                                name={key}
                                className={key === 'Enter' || key === 'Backspace' ?
-                                   'w-16 h-14 bg-slate-400 text-black rounded m-1' :
+                                   'keyboard-btn w-16 h-14 bg-slate-400 text-black rounded m-1' :
                                    highLightButton(key, letters)}>
                     {key === 'Backspace' ? icon : key}
                 </button>
