@@ -8,7 +8,7 @@ import {useDispatch, useSelector} from "react-redux";
 const Game = () => {
     const gameState = useSelector(state => state.wordReducer);
 
-    const {words, guessedWord, currentTry, notification, letters, userWord, isAnimationPassed, userMessage, green} = gameState;
+    const {words, guessedWord, currentTry, notification, letters, userWord, isAnimationPassed, userMessage} = gameState;
     const dispatch = useDispatch();
 
     return (

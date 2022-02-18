@@ -1,7 +1,7 @@
 import { USER_LOGGED_IN, CREATE_USER } from "../actions/actions";
 
 const initialState = {
-    isLoggedIn: true,
+    isLoggedIn: false,
     userName: '',
     userPassword: ''
 };
