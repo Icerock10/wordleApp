@@ -6,7 +6,7 @@ const initialState = {
         '', '', '', '', '', ''
     ],
     currentTry: 0,
-    guessedWord: wordsInList[Math.floor(Math.random() * wordsInList.length)],
+    guessedWord: 'ХОБОТ',
     notification: {
         isValid: true,
         message: ''
@@ -18,7 +18,8 @@ const initialState = {
     },
     userWord: '',
     isAnimationPassed: false,
-    userMessage: ''
+    userMessage: '',
+    green: ''
 }
 
 const wordReducer =  (state = initialState, action ) => {
@@ -33,6 +34,11 @@ const wordReducer =  (state = initialState, action ) => {
                     return item;
                 })
             }
+         case "TEST":
+             return {
+                 ...state,
+                 green: action.payload
+             }
         case NOTIFICATION:
             const { inValid, message } = action.statusMessage;
             return {
