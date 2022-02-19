@@ -11,8 +11,9 @@ export const delayTillAnimationEnds = (message) => ({
     type: ANIMATION_ENDS,
     message
 })
-export const resetGameState = () => ({
-    type: GAME_ENDS
+export const resetGameState = (randomWord) => ({
+    type: GAME_ENDS,
+    randomWord
 })
 export const sendUserNotification = (statusMessage) => ({
     type: NOTIFICATION,

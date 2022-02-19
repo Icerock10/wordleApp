@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import { resetGameState } from "../actions/actions";
-
+import {wordsInList} from "../helpers/guess";
 
 const CountDownTimer = ({ dispatch , userMessage }) => {
     const minutes = 0
@@ -8,8 +8,9 @@ const CountDownTimer = ({ dispatch , userMessage }) => {
     const [[mins, secs], setTime] = useState([minutes, seconds]);
 
     useEffect(() => {
+        const randomWord = wordsInList[Math.floor(Math.random() * wordsInList.length)];
         if(secs === 0) {
-            dispatch(resetGameState());
+            dispatch(resetGameState(randomWord));
         }
     }, [secs, dispatch])
 

@@ -1,4 +1,3 @@
-import { wordsInList } from "../helpers/guess";
 import { ADD_WORD, NOTIFICATION, ANIMATION_ENDS, GAME_ENDS, REMOVE_LETTER, CHANGE_STAGE  } from '../actions/actions';
 
 const initialState = {
@@ -6,7 +5,7 @@ const initialState = {
         '', '', '', '', '', ''
     ],
     currentTry: 0,
-    guessedWord: wordsInList[Math.floor(Math.random() * wordsInList.length)],
+    guessedWord: 'ТОПИК',
     notification: {
         isValid: true,
         message: ''
@@ -52,6 +51,7 @@ const wordReducer =  (state = initialState, action ) => {
          case GAME_ENDS:
              return {
                  ...initialState,
+                 guessedWord: action.randomWord
              }
         case REMOVE_LETTER:
             return {

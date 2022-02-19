@@ -20,12 +20,19 @@ export const highLightLetter = (word, letterIndex, guessedWord, currentTry, word
         if(guessedWord[i] === item) {
             positions.correctPos.push(i)
         } else if(guessedWord.includes(item)){
-            positions.incorrectPos.push(i);
+            positions.incorrectPos.push({
+                letters: item,
+                indexes: i
+            });
         }
     })
-    const getOneElement = positions.incorrectPos.find(ele => ele >= 0);
+    const getMatchedIndexes = positions.incorrectPos.filter((item, index, array) =>
+            index === array.findIndex((element) => (
+            element.letters === item.letters
+            ))
+    ).map((item) => item.indexes);
 
-    if([getOneElement].includes(letterIndex)) {
+    if(getMatchedIndexes.includes(letterIndex)) {
         const findIndex = guessedWord.indexOf(word[letterIndex]);
         if(!positions.correctPos.includes(findIndex)) {
             return 'flipInX bg-orange-500 highlight text-3xl font-medium text-white'
